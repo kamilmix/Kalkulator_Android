@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/liczbaB"
+        android:layout_width="0dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="228dp"
+        android:layout_marginLeft="228dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/edit_value"
+        android:inputType="number"
+        app:layout_constraintBaseline_toBaselineOf="@+id/liczbaA"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDodaj"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="288dp"
+        android:layout_marginRight="288dp"
+        android:onClick="onClickButton"
+        android:text="+"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liczbaA" />
+
+    <Button
+        android:id="@+id/buttonOdejmij"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="onClickButton"
+        android:text="-"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonDodaj"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPomnoz"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/buttonDodaj" />
+
+    <Button
+        android:id="@+id/buttonPomnoz"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginRight="36dp"
+        android:onClick="onClickButton"
+        android:text="*"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/buttonPodziel"
+        app:layout_constraintEnd_toStartOf="@+id/buttonPodziel" />
+
+    <Button
+        android:id="@+id/buttonPodziel"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:onClick="onClickButton"
+        android:text="/"
+        android:textSize="36sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liczbaA" />
+
+    <EditText
+        android:id="@+id/liczbaA"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:ems="10"
+        android:hint="@string/edit_value"
+        android:inputType="number"
+        app:layout_constraintEnd_toStartOf="@+id/liczbaB"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/wynik"
+        android:layout_width="111dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="248dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/text_result"
+        android:textSize="@android:dimen/app_icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/liczbaA"
+        app:layout_constraintVertical_bias="0.0" />
+
+</android.support.constraint.ConstraintLayout>
