@@ -1,5 +1,6 @@
 package com.mucha.kamil.myfirstapplication;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,10 +8,20 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.apache.commons.math3.analysis.function.Exp;
 import org.apache.commons.math3.complex.Complex;
+import net.objecthunter.exp4j.Expression;
+import net.objecthunter.exp4j.ExpressionBuilder;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE";
     Button button0;
     Button button1;
     Button button2;
@@ -26,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     String result;
-
+    ArrayList<String> list = new ArrayList<String>();
 
 
 
@@ -90,7 +101,11 @@ public class MainActivity extends AppCompatActivity {
                 result += "8" ;
             } else if(operator.equals("9")) {
                 result += "9";
+            }else if(operator.equals("C")) {
+                result = "";
             }
+
+
 
 
 
@@ -102,7 +117,19 @@ public class MainActivity extends AppCompatActivity {
 
     protected void onClickEqual(View v){
 
-        wynik.setText("wynik");
+        Expression e = new ExpressionBuilder(result).build();
+        double eWynik= e.evaluate();
+
+        wynik.setText(Double.toString(eWynik));
+        list.add(result + " = " + eWynik);
+        result="";
+    }
+
+    protected void onClickHistory(View v){
+        Intent intent = new Intent(this, HistoryActivity.class);
+        intent.putStringArrayListExtra(EXTRA_MESSAGE, list);
+        startActivity(intent);
+
 
     }
 
