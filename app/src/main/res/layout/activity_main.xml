@@ -161,13 +161,14 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/buttonCE"
+        android:id="@+id/buttonBack"
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
-        android:text="CE"
+        android:onClick="onClickBack"
+        android:text="←"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button8"
@@ -189,7 +190,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/buttonCE" />
+        app:layout_constraintStart_toEndOf="@+id/buttonBack" />
 
     <Button
         android:id="@+id/buttonIntersection"
@@ -198,6 +199,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
+        android:onClick="onClickPoint"
         android:text=","
         android:textSize="36sp"
         android:textStyle="bold"
@@ -258,7 +260,7 @@
         android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/buttonPomnoz"
-        app:layout_constraintStart_toEndOf="@+id/buttonCE" />
+        app:layout_constraintStart_toEndOf="@+id/buttonBack" />
 
     <Button
         android:id="@+id/buttonEqual"
@@ -275,11 +277,12 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/button9"
         app:layout_constraintEnd_toStartOf="@+id/buttonPodziel"
-        app:layout_constraintStart_toEndOf="@+id/buttonCE" />
+        app:layout_constraintStart_toEndOf="@+id/buttonBack" />
+
 
     <TextView
         android:id="@+id/wynik"
-        android:layout_width="347dp"
+        android:layout_width="352dp"
         android:layout_height="62dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
@@ -287,6 +290,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="440dp"
+        android:background="@android:color/darker_gray"
+        android:gravity="right"
         android:numeric="integer|signed|decimal"
         android:text="@string/text_result"
         android:textSize="@android:dimen/app_icon_size"

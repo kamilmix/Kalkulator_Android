@@ -105,24 +105,27 @@ public class MainActivity extends AppCompatActivity {
                 result = "";
             }
 
-
-
-
-
-            //int ab =
             wynik.setText(result);
-       // DoubleEvaluator engine = new DoubleEvaluator(true);
+
 
     }
 
+    protected void onClickPoint(View v){
+        if(result != "") {
+            result += ".";
+            wynik.setText(result);
+        }
+    }
+
     protected void onClickEqual(View v){
+        if(result != "") {
+            Expression e = new ExpressionBuilder(result).build();
+            double eWynik = e.evaluate();
 
-        Expression e = new ExpressionBuilder(result).build();
-        double eWynik= e.evaluate();
-
-        wynik.setText(Double.toString(eWynik));
-        list.add(result + " = " + eWynik);
-        result="";
+            wynik.setText(Double.toString(eWynik));
+            list.add(result + " = " + eWynik);
+            result = "";
+        }
     }
 
     protected void onClickHistory(View v){
@@ -132,7 +135,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    protected void onClickBack(View v){
+        result = deleteLastChar(result);
+        wynik.setText(result);
 
+    }
+
+    private String deleteLastChar(String str) {
+        if (str != null && str.length() > 0) {
+            str = str.substring(0, str.length() - 1);
+        }
+        return str;
+    }
 
 
 
