@@ -3,43 +3,25 @@ package com.mucha.kamil.myfirstapplication;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.commons.math3.analysis.function.Exp;
-import org.apache.commons.math3.complex.Complex;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+
+import es.dmoral.toasty.Toasty;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE";
-    Button button0;
-    Button button1;
-    Button button2;
-    Button button3;
-    Button button4;
-    Button button5;
-    Button button6;
-    Button button7;
-    Button button8;
-    Button button9;
-    Button plus;
-    TextView wynik;
-
-
+  
+    TextView resultView;
     String result;
     ArrayList<String> list = new ArrayList<String>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,17 +33,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init() {
-      /*  button0 = findViewById(R.id.button0);
-        button1 = findViewById(R.id.button1);
-        button2 = findViewById(R.id.button2);
-        button3 = findViewById(R.id.button3);
-        button4 = findViewById(R.id.button4);
-        button5 = findViewById(R.id.button5);
-        button6 = findViewById(R.id.button6);
-        button7 = findViewById(R.id.button7);
-        button8 = findViewById(R.id.button8);
-        button9 = findViewById(R.id.button9); */
-        wynik = (TextView) findViewById(R.id.wynik);
+        resultView = (TextView) findViewById(R.id.wynik);
         result="";
 
     }
@@ -70,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
         Button clicked = (Button) v;
         String operator = clicked.getText().toString();
-
-
 
             if (operator.equals("+")) {
                 result += "+" ;
@@ -105,26 +75,36 @@ public class MainActivity extends AppCompatActivity {
                 result = "";
             }
 
-            wynik.setText(result);
-
+            resultView.setText(result);
 
     }
 
     protected void onClickPoint(View v){
         if(result != "") {
             result += ".";
-            wynik.setText(result);
+            resultView.setText(result);
         }
     }
 
     protected void onClickEqual(View v){
         if(result != "") {
-            Expression e = new ExpressionBuilder(result).build();
-            double eWynik = e.evaluate();
 
-            wynik.setText(Double.toString(eWynik));
-            list.add(result + " = " + eWynik);
-            result = "";
+           try{
+            Expression e = new ExpressionBuilder(result).build();
+            double calculated = e.evaluate();
+               resultView.setText(Double.toString(calculated));
+               list.add(result + " = " + calculated);
+               result = "";
+           }
+            catch(Exception e){
+
+                Toasty.error(getApplicationContext(), "Incorrect", Toast.LENGTH_SHORT, true).show();
+
+
+            }
+
+
+
         }
     }
 
@@ -137,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
     }
     protected void onClickBack(View v){
         result = deleteLastChar(result);
-        wynik.setText(result);
+        resultView.setText(result);
 
     }
 

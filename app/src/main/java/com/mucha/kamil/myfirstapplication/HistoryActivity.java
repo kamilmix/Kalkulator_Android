@@ -10,11 +10,11 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
-
+    public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE.REPLY";
 
     private ListView listView;
     private ArrayAdapter<String> adapter;
-
+    private ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,17 +22,19 @@ public class HistoryActivity extends AppCompatActivity {
         listView = findViewById(R.id.listView);
 
         Intent intent = getIntent();
-        ArrayList<String> list = intent.getStringArrayListExtra(MainActivity.EXTRA_MESSAGE);
+        list = intent.getStringArrayListExtra(MainActivity.EXTRA_MESSAGE);
 
         adapter = new ArrayAdapter<String>(this, R.layout.row, list);
 
         listView.setAdapter(adapter);
     }
 
-    protected void onClickHistory(View v){
-       // Intent intent = new Intent(this, MainActivity.class);
+    protected void onClickBack(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putStringArrayListExtra(EXTRA_MESSAGE, list);
         //startActivity(intent);
-
+        setResult(RESULT_OK,intent);
+        finish();
 
 
     }
