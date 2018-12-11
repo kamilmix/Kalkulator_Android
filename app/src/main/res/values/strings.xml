@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">My FirstApplication</string>
+    <string name="app_name">Calc</string>
     <string name="edit_value">Enter a value</string>
     <string name="button_send">Send</string>
     <string name="text_result">Result</string>

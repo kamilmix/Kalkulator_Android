@@ -1,9 +1,9 @@
 package com.mucha.kamil.myfirstapplication;
 
+
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,12 +16,17 @@ import java.util.ArrayList;
 
 import es.dmoral.toasty.Toasty;
 
+
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE";
+
   
     TextView resultView;
     String result;
-    ArrayList<String> list = new ArrayList<String>();
+    ArrayList<String> list = new ArrayList<>();
+    DbHelper db = new DbHelper(this);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +34,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         init();
 
-
     }
+
+
 
     private void init() {
         resultView = (TextView) findViewById(R.id.wynik);
@@ -86,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
     protected void onClickEqual(View v){
         if(result != "") {
 
@@ -94,6 +101,12 @@ public class MainActivity extends AppCompatActivity {
             double calculated = e.evaluate();
                resultView.setText(Double.toString(calculated));
                list.add(result + " = " + calculated);
+
+
+                db.addValue(result + " = " + calculated);
+
+
+
                result = "";
            }
             catch(Exception e){
@@ -111,9 +124,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onClickHistory(View v){
         Intent intent = new Intent(this, HistoryActivity.class);
         intent.putStringArrayListExtra(EXTRA_MESSAGE, list);
+
+
+
+
         startActivity(intent);
-
-
     }
     protected void onClickBack(View v){
         result = deleteLastChar(result);
