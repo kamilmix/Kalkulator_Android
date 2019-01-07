@@ -21,10 +21,11 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE";
 
   
-    TextView resultView;
-    String result;
-    ArrayList<String> list = new ArrayList<>();
-    DbHelper db = new DbHelper(this);
+    private TextView resultView;
+    private String result;
+
+    private ArrayList<String> historyList = new ArrayList<>();
+    private DbHelper database = new DbHelper(this);
 
 
 
@@ -36,53 +37,34 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
 
+        super.onDestroy();
+        database.close();
+    }
 
     private void init() {
-        resultView = (TextView) findViewById(R.id.wynik);
-        result="";
+        resultView = findViewById(R.id.wynik);
+
+        result = "";
 
     }
 
     protected void onClickButton(View v){
 
         Button clicked = (Button) v;
+
         String operator = clicked.getText().toString();
 
-            if (operator.equals("+")) {
-                result += "+" ;
-            } else if (operator.equals("-")) {
-                result += "-" ;
-            } else if (operator.equals("*")) {
-                result += "*" ;
-            } else if (operator.equals("/")) {
-                result += "/" ;
-            } else if(operator.equals("0")) {
-                result += "0" ;
-            } else if(operator.equals("1")) {
-                result += "1" ;
-            } else if(operator.equals("2")) {
-                result += "2" ;
-            } else if(operator.equals("3")) {
-                result += "3" ;
-            } else if(operator.equals("4")) {
-                result += "4" ;
-            } else if(operator.equals("5")) {
-                result += "5" ;
-            } else if(operator.equals("6")) {
-                result += "6" ;
-            } else if(operator.equals("7")) {
-                result += "7" ;
-            } else if(operator.equals("8")) {
-                result += "8" ;
-            } else if(operator.equals("9")) {
-                result += "9";
-            }else if(operator.equals("C")) {
+            if(operator.equals("C")) {
                 result = "";
+            }
+            else{
+                result += operator;
             }
 
             resultView.setText(result);
-
     }
 
     protected void onClickPoint(View v){
@@ -99,50 +81,44 @@ public class MainActivity extends AppCompatActivity {
            try{
             Expression e = new ExpressionBuilder(result).build();
             double calculated = e.evaluate();
-               resultView.setText(Double.toString(calculated));
-               list.add(result + " = " + calculated);
+               resultView.setText(formatDoubleToString(calculated));
+               historyList.add(result + " = " + calculated);
 
-
-                db.addValue(result + " = " + calculated);
-
-
+               database.addValue(result + " = " + calculated);
 
                result = "";
            }
             catch(Exception e){
-
                 Toasty.error(getApplicationContext(), "Incorrect", Toast.LENGTH_SHORT, true).show();
-
-
             }
-
-
-
         }
     }
 
     protected void onClickHistory(View v){
         Intent intent = new Intent(this, HistoryActivity.class);
-        intent.putStringArrayListExtra(EXTRA_MESSAGE, list);
-
-
-
+        intent.putStringArrayListExtra(EXTRA_MESSAGE, historyList);
 
         startActivity(intent);
     }
     protected void onClickBack(View v){
         result = deleteLastChar(result);
         resultView.setText(result);
-
     }
 
-    private String deleteLastChar(String str) {
-        if (str != null && str.length() > 0) {
-            str = str.substring(0, str.length() - 1);
+    private String deleteLastChar(String string) {
+        if (string != null) {
+            if(string.length() > 0){
+                string = string.substring(0, string.length() - 1);
+            }
         }
-        return str;
+        return string;
     }
 
 
-
+    private String formatDoubleToString(double d){
+        if(d == (long) d)
+            return String.format("%d",(long)d);
+        else
+            return String.format("%s",d);
+    }
 }

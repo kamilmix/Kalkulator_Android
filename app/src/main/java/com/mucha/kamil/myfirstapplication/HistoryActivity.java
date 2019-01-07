@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -12,10 +13,8 @@ import java.util.ArrayList;
 public class HistoryActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE = "com.mucha.kamil.myfristapplication.MESSAGE.REPLY";
 
-    private ListView listView;
-    private ArrayAdapter<String> adapter;
-    private ArrayList<String> list;
-    DbHelper db = new DbHelper(this);
+    private ArrayList<String> historyList;
+    private DbHelper database = new DbHelper(this);
 
 
     @Override
@@ -23,30 +22,43 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         readFromDatabase();
-        listView = findViewById(R.id.listView);
+        init();
+    }
 
-        Intent intent = getIntent();
+    @Override
+    protected void onDestroy() {
+        database.close();
+        super.onDestroy();
+    }
 
-       // list = intent.getStringArrayListExtra(MainActivity.EXTRA_MESSAGE);
+    private void init() {
+        ListView listViewHistory = findViewById(R.id.listView);
+        Button buttonBack = findViewById(R.id.buttonBack);
+        buttonBack.setOnClickListener(buttonBackOnClickListener);
 
-        adapter = new ArrayAdapter<>(this, R.layout.row, list);
+        ArrayAdapter<String> equationAdapter = new ArrayAdapter<>(this, R.layout.row, historyList);
 
-        listView.setAdapter(adapter);
+        listViewHistory.setAdapter(equationAdapter);
     }
 
     private void readFromDatabase() {
-        list = db.getAllToArray();
-
+        historyList = database.getAllToArray();
     }
 
-    protected void onClickBack(View v){
+    private View.OnClickListener buttonBackOnClickListener = new View.OnClickListener(){
+
+        @Override
+        public void onClick(View v) {
+            buttonBackClicked();
+        }
+    };
+
+    private void buttonBackClicked() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putStringArrayListExtra(EXTRA_MESSAGE, list);
+        intent.putStringArrayListExtra(EXTRA_MESSAGE, historyList);
         //startActivity(intent);
         setResult(RESULT_OK,intent);
         finish();
-
-
     }
 
 }
