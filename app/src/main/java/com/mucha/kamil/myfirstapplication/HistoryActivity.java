@@ -55,8 +55,6 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void buttonBackClicked() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.putStringArrayListExtra(EXTRA_MESSAGE, historyList);
-        //startActivity(intent);
         setResult(RESULT_OK,intent);
         finish();
     }
