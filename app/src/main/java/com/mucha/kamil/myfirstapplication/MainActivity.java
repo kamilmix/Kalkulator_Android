@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private String concatWithEquealitySign(String result, double calculated) {
+    String concatWithEquealitySign(String result, double calculated) {
         return result + " = " + calculated;
     }
 
@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         resultView.setText(result);
     }
 
-    private String deleteLastChar(String string) {
+     String deleteLastChar(String string) {
         if (string != null) {
             if(string.length() > 0){
                 string = string.substring(0, string.length() - 1);
@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String formatDoubleToString(double d){
+     String formatDoubleToString(double d){
         if(d == (long) d) {
             return String.format("%d", (long) d);
         }
